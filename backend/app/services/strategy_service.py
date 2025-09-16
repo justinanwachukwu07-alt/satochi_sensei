@@ -182,20 +182,27 @@ class StrategyService:
     
     def _create_strategy_prompt(self, input_data: Dict[str, Any]) -> str:
         """Create prompt for Groq AI"""
+        # Safely extract user profile data with defaults
+        user_profile = input_data.get('user_profile', {})
+        risk_tolerance = user_profile.get('risk_tolerance', 'medium')
+        investment_amount = user_profile.get('investment_amount', 'Not specified')
+        time_horizon = user_profile.get('time_horizon', 'medium')
+        preferred_protocols = user_profile.get('preferred_protocols', [])
+        
         return f"""
         Analyze the following user data and market conditions to provide a DeFi strategy recommendation:
         
         User Profile:
-        - Risk Tolerance: {input_data['user_profile']['risk_tolerance']}
-        - Investment Amount: {input_data['user_profile']['investment_amount']}
-        - Time Horizon: {input_data['user_profile']['time_horizon']}
-        - Preferred Protocols: {input_data['user_profile']['preferred_protocols']}
+        - Risk Tolerance: {risk_tolerance}
+        - Investment Amount: {investment_amount}
+        - Time Horizon: {time_horizon}
+        - Preferred Protocols: {preferred_protocols}
         
         Wallet Data:
-        {json.dumps(input_data['wallet_data'], indent=2)}
+        {json.dumps(input_data.get('wallet_data', {}), indent=2)}
         
         Market Data:
-        {json.dumps(input_data['market_data'], indent=2)}
+        {json.dumps(input_data.get('market_data', {}), indent=2)}
         
         Please provide a JSON response with the following structure:
         {{
