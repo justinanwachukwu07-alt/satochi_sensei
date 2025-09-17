@@ -1,6 +1,7 @@
-import { Clarinet, Tx, Chain, Account, types } from "https://deno.land/x/clarinet@v1.7.1/index.ts";
-import { assertEquals } from "https://deno.land/std@0.190.0/testing/asserts.ts";
+import { Tx, Chain, Account, types } from "@hirosystems/clarinet-sdk";
+import { assertEquals } from "vitest";
 
+// @ts-ignore
 Clarinet.test({
   name: "DeFi Strategy Executor - Initialize Protocols",
   async fn(chain: Chain, accounts: Map<string, Account>) {

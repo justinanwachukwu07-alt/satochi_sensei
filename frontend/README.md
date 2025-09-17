@@ -37,7 +37,7 @@
 ### Prerequisites
 
 - Node.js 18+ 
-- npm or yarn
+- pnpm (recommended), npm, or yarn
 - A Stacks-compatible wallet (Hiro Wallet recommended)
 
 ### Installation
@@ -50,6 +50,8 @@
 
 2. **Install dependencies**
    \`\`\`bash
+   pnpm install
+   # or
    npm install
    # or
    yarn install
@@ -57,7 +59,7 @@
 
 3. **Set up environment variables**
    \`\`\`bash
-   cp .env.example .env.local
+   cp env.example .env.local
    \`\`\`
    
    Configure the following variables:
@@ -65,10 +67,16 @@
    NEXT_PUBLIC_API_BASE_URL=https://your-api-endpoint.com
    NEXT_PUBLIC_STACKS_NETWORK=testnet # or mainnet
    NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
+   
+   # Contract Addresses (Deployed on Testnet)
+   NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT=STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core
+   NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT=STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor
    \`\`\`
 
 4. **Run the development server**
    \`\`\`bash
+   pnpm dev
+   # or
    npm run dev
    # or
    yarn dev
@@ -166,6 +174,23 @@ All components follow the **Neon Bitcoin Noir** aesthetic with:
 
 ---
 
+## 📋 Deployed Contracts
+
+The Satoshi Sensei contracts are deployed on Stacks Testnet:
+
+### Contract Addresses
+- **Satoshi Sensei Core**: `STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core`
+- **DeFi Strategy Executor**: `STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor`
+
+### Contract Functions
+- **Core Contract**: Strategy creation, execution, and management
+- **Executor Contract**: DeFi strategy execution (liquidity provision, yield farming)
+
+### View on Explorer
+- [Stacks Explorer - Testnet](https://explorer.stacks.co/?chain=testnet)
+
+---
+
 ## 🔌 API Integration
 
 ### Wallet Connection
@@ -207,16 +232,16 @@ const result = await api.broadcastTransaction(signedTx);
 
 \`\`\`bash
 # Development
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript compiler
+pnpm dev             # Start development server
+pnpm build           # Build for production
+pnpm start           # Start production server
+pnpm lint            # Run ESLint
+pnpm type-check      # Run TypeScript compiler
 
 # Testing
-npm run test         # Run test suite
-npm run test:watch   # Run tests in watch mode
-npm run test:coverage # Generate coverage report
+pnpm test            # Run test suite
+pnpm test:watch      # Run tests in watch mode
+pnpm test:coverage   # Generate coverage report
 \`\`\`
 
 ### Environment Setup
@@ -243,17 +268,44 @@ NEXT_PUBLIC_ENABLE_AI_INSIGHTS=true
 ### Vercel (Recommended)
 
 1. **Connect your repository** to Vercel
-2. **Configure environment variables** in the Vercel dashboard
-3. **Deploy** - Vercel will automatically build and deploy your app
+2. **Configure environment variables** in the Vercel dashboard:
+   - `NEXT_PUBLIC_STACKS_NETWORK=testnet`
+   - `NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT=STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core`
+   - `NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT=STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor`
+   - `NEXT_PUBLIC_API_BASE_URL=https://api.satoshisensei.com`
+3. **Deploy** - Vercel will automatically build and deploy your app using the included `vercel.json` configuration
+
+### Render.com
+
+1. **Connect your repository** to Render
+2. **Create a new Web Service** and select your repository
+3. **Configure the service**:
+   - Build Command: `pnpm install && pnpm build`
+   - Start Command: `pnpm start`
+   - Environment: `Node`
+4. **Deploy** - Render will use the included `render.yaml` configuration
 
 ### Manual Deployment
 
 \`\`\`bash
 # Build the application
-npm run build
+pnpm build
 
 # Start the production server
-npm run start
+pnpm start
+\`\`\`
+
+### Environment Variables for Production
+
+Make sure to set these environment variables in your deployment platform:
+
+\`\`\`env
+NEXT_PUBLIC_STACKS_NETWORK=testnet
+NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT=STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core
+NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT=STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor
+NEXT_PUBLIC_API_BASE_URL=https://api.satoshisensei.com
+NEXT_PUBLIC_ENABLE_MOCK_WALLET=false
+NEXT_PUBLIC_ENABLE_AI_INSIGHTS=true
 \`\`\`
 
 ---

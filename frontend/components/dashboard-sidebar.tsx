@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { useUIStore } from "@/lib/store"
-import { Home, TrendingUp, Brain, Wallet, Settings, Menu, X, ChevronLeft, ChevronRight } from "lucide-react"
+import { Home, TrendingUp, Brain, Wallet, Settings, Menu, X, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -104,6 +104,33 @@ export function DashboardSidebar() {
           {/* Navigation */}
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
+              {/* Back to Home Link */}
+              <li>
+                <Link
+                  href="/"
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
+                    "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    "text-sidebar-foreground border-b border-sidebar-border pb-4 mb-4"
+                  )}
+                >
+                  <ArrowLeft className="w-5 h-5 flex-shrink-0" />
+                  <AnimatePresence mode="wait">
+                    {!sidebarCollapsed && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="font-medium"
+                      >
+                        Back to Home
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </Link>
+              </li>
+              
               {sidebarItems.map((item) => {
                 const isActive = pathname === item.href
                 return (

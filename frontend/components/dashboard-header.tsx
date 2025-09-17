@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ConnectWalletButton } from "@/components/connect-wallet-button"
 import { useAuthStore } from "@/lib/store"
-import { Wallet, Home, Menu } from "lucide-react"
+import { Wallet, Home, Menu, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useUIStore } from "@/lib/store"
@@ -31,6 +31,14 @@ export function DashboardHeader() {
             <Menu className="w-4 h-4" />
           </Button>
           <div className="flex items-center gap-2">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-sm">Back to Home</span>
+            </Link>
+            <span className="text-muted-foreground">/</span>
             <Link
               href="/dashboard"
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"

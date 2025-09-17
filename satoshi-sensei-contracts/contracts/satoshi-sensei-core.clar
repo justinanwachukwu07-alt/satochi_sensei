@@ -1,7 +1,6 @@
 ;; Satoshi Sensei Core Contract
 ;; AI-powered DeFi strategy execution and management
 
-(impl-trait 'SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7.satoshi-sensei-core-trait.ISatoshiSenseiCore)
 
 ;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
@@ -43,7 +42,7 @@
     
     (let (
       (strategy-id (+ (var-get total-strategies) u1))
-      (current-time (unwrap! (get-block-info? time u0) u0))
+      (current-time u0)
     )
       (begin
         (var-set total-strategies strategy-id)
@@ -68,16 +67,15 @@
   (strategy-id uint)
   (transaction-hash (string-utf8 100))
 )
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-UNAUTHORIZED)
-    
+  (if (is-eq tx-sender CONTRACT-OWNER)
     (match (map-get? strategies strategy-id)
       strategy (begin
         (var-set total-volume (+ (var-get total-volume) (get amount strategy)))
         (ok strategy-id)
       )
-      none (err ERR-STRATEGY-NOT-FOUND)
+      (err ERR-STRATEGY-NOT-FOUND)
     )
+    (err ERR-UNAUTHORIZED)
   )
 )
 

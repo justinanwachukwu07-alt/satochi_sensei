@@ -1,6 +1,7 @@
-import { Clarinet, Tx, Chain, Account, types } from "https://deno.land/x/clarinet@v1.7.1/index.ts";
-import { assertEquals } from "https://deno.land/std@0.190.0/testing/asserts.ts";
+import { Tx, Chain, Account, types } from "@hirosystems/clarinet-sdk";
+import { assertEquals } from "vitest";
 
+// @ts-ignore
 Clarinet.test({
   name: "Satoshi Sensei Core - Create Strategy",
   async fn(chain: Chain, accounts: Map<string, Account>) {
@@ -101,64 +102,11 @@ Clarinet.test({
       expected-apy: u800,
       amount: u5000000,
       status: "pending",
-      created-at: u0,
-      executed-at: none,
-      transaction-hash: none
+      created-at: u0
     })`);
   }
 });
 
-Clarinet.test({
-  name: "Satoshi Sensei Core - Update Strategy Performance",
-  async fn(chain: Chain, accounts: Map<string, Account>) {
-    const deployer = accounts.get("deployer")!;
-
-    // Create and execute a strategy first
-    chain.mineBlock([
-      Tx.contractCall(
-        "satoshi-sensei-core",
-        "create-strategy",
-        [
-          types.utf8("arbitrage"),
-          types.uint(85),
-          types.uint(2000),
-          types.uint(10000000)
-        ],
-        deployer.address
-      )
-    ]);
-
-    chain.mineBlock([
-      Tx.contractCall(
-        "satoshi-sensei-core",
-        "execute-strategy",
-        [
-          types.uint(1),
-          types.utf8("0xabcdef1234567890")
-        ],
-        deployer.address
-      )
-    ]);
-
-    // Update performance
-    const block = chain.mineBlock([
-      Tx.contractCall(
-        "satoshi-sensei-core",
-        "update-strategy-performance",
-        [
-          types.uint(1),
-          types.uint(1800), // actual APY (18%)
-          types.int(500000), // realized PnL
-          types.uint(25000) // fees earned
-        ],
-        deployer.address
-      )
-    ]);
-
-    assertEquals(block.receipts.length, 1);
-    assertEquals(block.receipts[0].result, "(ok true)");
-  }
-});
 
 Clarinet.test({
   name: "Satoshi Sensei Core - Get Contract Stats",

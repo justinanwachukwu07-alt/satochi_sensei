@@ -1,0 +1,25 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://api.testnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: defi-strategy-executor
+            expected-sender: STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2
+            cost: 66640
+            path: contracts/defi-strategy-executor.clar
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
+            contract-name: satoshi-sensei-core
+            expected-sender: STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2
+            cost: 23060
+            path: contracts/satoshi-sensei-core.clar
+            anchor-block-only: true
+            clarity-version: 1
+      epoch: "2.05"

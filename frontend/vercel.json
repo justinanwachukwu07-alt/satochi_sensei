@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "name": "satoshi-sensei",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_STACKS_NETWORK": "testnet",
+    "NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT": "STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core",
+    "NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT": "STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor"
+  },
+  "functions": {
+    "app/**/*.tsx": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard/portfolio",
+      "permanent": false
+    }
+  ]
+}

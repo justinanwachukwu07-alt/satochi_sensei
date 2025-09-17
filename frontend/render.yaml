@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: satoshi-sensei-frontend
+    env: node
+    plan: starter
+    buildCommand: pnpm install && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_STACKS_NETWORK
+        value: testnet
+      - key: NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT
+        value: STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core
+      - key: NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT
+        value: STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor
+      - key: NEXT_PUBLIC_API_BASE_URL
+        value: https://api.satoshisensei.com
+      - key: NEXT_PUBLIC_ENABLE_MOCK_WALLET
+        value: false
+      - key: NEXT_PUBLIC_ENABLE_AI_INSIGHTS
+        value: true
+    healthCheckPath: /
+    autoDeploy: true
+    branch: main

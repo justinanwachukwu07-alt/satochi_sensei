@@ -91,50 +91,45 @@
   (amount-a uint)
   (amount-b uint)
 )
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-UNAUTHORIZED)
-    
+  (if (is-eq tx-sender CONTRACT-OWNER)
     (let (
       (execution-id (+ (var-get total-executions) u1))
-      (current-time (unwrap! (get-block-info? time u0) u0))
+      (current-time u0)
       (total-amount (+ amount-a amount-b))
     )
-      (begin
-        ;; Validate protocol configuration
-        (match (map-get? protocol-configs protocol)
-          config (begin
-            (asserts! (get enabled config) ERR-INVALID-STRATEGY)
-            (asserts! (>= total-amount (get min-amount config)) ERR-INVALID-STRATEGY)
-            (asserts! (<= total-amount (get max-amount config)) ERR-INVALID-STRATEGY)
-            
-            (let (
-              (fee-amount (/ (* total-amount (get fee-rate config)) u10000))
-            )
-              (begin
-                (map-set executions execution-id {
-                  id: execution-id,
-                  user: tx-sender,
-                  strategy-type: STRATEGY-LIQUIDITY-PROVISION,
-                  amount: total-amount,
-                  protocol: protocol,
-                  status: u"pending",
-                  created-at: current-time,
-                  completed-at: none,
-                  fees-paid: fee-amount,
-                  returns: none
-                })
-                
-                (var-set total-executions execution-id)
-                (var-set total-fees-collected (+ (var-get total-fees-collected) fee-amount))
-                
-                (ok execution-id)
-              )
+      (match (map-get? protocol-configs protocol)
+        config (if (and (get enabled config) 
+                        (>= total-amount (get min-amount config))
+                        (<= total-amount (get max-amount config)))
+          (let (
+            (fee-amount (/ (* total-amount (get fee-rate config)) u10000))
+          )
+            (begin
+              (map-set executions execution-id {
+                id: execution-id,
+                user: tx-sender,
+                strategy-type: STRATEGY-LIQUIDITY-PROVISION,
+                amount: total-amount,
+                protocol: protocol,
+                status: u"pending",
+                created-at: current-time,
+                completed-at: none,
+                fees-paid: fee-amount,
+                returns: none
+              })
+              
+              (var-set total-executions execution-id)
+              (var-set total-fees-collected (+ (var-get total-fees-collected) fee-amount))
+              
+              (ok execution-id)
             )
           )
-          none (err ERR-INVALID-STRATEGY)
+          (err ERR-INVALID-STRATEGY)
         )
+        (err ERR-INVALID-STRATEGY)
       )
     )
+    (err ERR-UNAUTHORIZED)
   )
 )
 
@@ -145,49 +140,44 @@
   (amount uint)
   (duration uint)
 )
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-UNAUTHORIZED)
-    
+  (if (is-eq tx-sender CONTRACT-OWNER)
     (let (
       (execution-id (+ (var-get total-executions) u1))
-      (current-time (unwrap! (get-block-info? time u0) u0))
+      (current-time u0)
     )
-      (begin
-        ;; Validate protocol configuration
-        (match (map-get? protocol-configs protocol)
-          config (begin
-            (asserts! (get enabled config) ERR-INVALID-STRATEGY)
-            (asserts! (>= amount (get min-amount config)) ERR-INVALID-STRATEGY)
-            (asserts! (<= amount (get max-amount config)) ERR-INVALID-STRATEGY)
-            
-            (let (
-              (fee-amount (/ (* amount (get fee-rate config)) u10000))
-            )
-              (begin
-                (map-set executions execution-id {
-                  id: execution-id,
-                  user: tx-sender,
-                  strategy-type: STRATEGY-YIELD-FARMING,
-                  amount: amount,
-                  protocol: protocol,
-                  status: u"pending",
-                  created-at: current-time,
-                  completed-at: none,
-                  fees-paid: fee-amount,
-                  returns: none
-                })
-                
-                (var-set total-executions execution-id)
-                (var-set total-fees-collected (+ (var-get total-fees-collected) fee-amount))
-                
-                (ok execution-id)
-              )
+      (match (map-get? protocol-configs protocol)
+        config (if (and (get enabled config)
+                        (>= amount (get min-amount config))
+                        (<= amount (get max-amount config)))
+          (let (
+            (fee-amount (/ (* amount (get fee-rate config)) u10000))
+          )
+            (begin
+              (map-set executions execution-id {
+                id: execution-id,
+                user: tx-sender,
+                strategy-type: STRATEGY-YIELD-FARMING,
+                amount: amount,
+                protocol: protocol,
+                status: u"pending",
+                created-at: current-time,
+                completed-at: none,
+                fees-paid: fee-amount,
+                returns: none
+              })
+              
+              (var-set total-executions execution-id)
+              (var-set total-fees-collected (+ (var-get total-fees-collected) fee-amount))
+              
+              (ok execution-id)
             )
           )
-          none (err ERR-INVALID-STRATEGY)
+          (err ERR-INVALID-STRATEGY)
         )
+        (err ERR-INVALID-STRATEGY)
       )
     )
+    (err ERR-UNAUTHORIZED)
   )
 )
 
@@ -196,15 +186,11 @@
   (execution-id uint)
   (returns uint)
 )
-  (begin
-    (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-UNAUTHORIZED)
-    
+  (if (is-eq tx-sender CONTRACT-OWNER)
     (match (map-get? executions execution-id)
-      execution (begin
-        (asserts! (is-eq (get status execution) u"pending") ERR-INVALID-STRATEGY)
-        
+      execution (if (is-eq (get status execution) u"pending")
         (let (
-          (current-time (unwrap! (get-block-info? time u0) u0))
+          (current-time u0)
           (updated-execution (merge execution {
             status: u"completed",
             completed-at: (some current-time),
@@ -216,9 +202,11 @@
             (ok execution-id)
           )
         )
+        (err ERR-INVALID-STRATEGY)
       )
-      none (err ERR-INVALID-STRATEGY)
+      (err ERR-INVALID-STRATEGY)
     )
+    (err ERR-UNAUTHORIZED)
   )
 )
 

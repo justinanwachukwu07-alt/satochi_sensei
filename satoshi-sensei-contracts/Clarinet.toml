@@ -8,8 +8,6 @@ cache_dir = "./.cache"
 [contracts.satoshi-sensei-core]
 path = "contracts/satoshi-sensei-core.clar"
 
-[contracts.satoshi-sensei-core-trait]
-path = "contracts/satoshi-sensei-core-trait.clar"
 
 [contracts.defi-strategy-executor]
 path = "contracts/defi-strategy-executor.clar"
