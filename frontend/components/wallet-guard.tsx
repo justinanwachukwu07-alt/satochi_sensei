@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useAuthStore } from "../lib"
+import { useAuthStore } from "lib"
 import { ConnectWalletButton } from "@/components/connect-wallet-button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Wallet, Shield, Zap } from "lucide-react"
