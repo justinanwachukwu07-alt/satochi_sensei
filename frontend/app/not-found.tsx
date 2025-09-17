@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
-import { useAuthStore } from "@/lib"
+import { useAuthStore } from "../lib/store"
 import { Home, ArrowLeft, Brain } from "lucide-react"
 import Link from "next/link"
 
