@@ -1,16 +1,10 @@
 {
   "version": 2,
   "name": "satoshi-sensei",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
   "env": {
     "NEXT_PUBLIC_STACKS_NETWORK": "testnet",
-    "NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT": "STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core",
-    "NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT": "STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor"
+    "NEXT_PUBLIC_SATOSHI_SENSEI_CORE_CONTRACT": "SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7",
+    "NEXT_PUBLIC_DEFI_STRATEGY_EXECUTOR_CONTRACT": "SP21YTSM60CAY6D011EZVEVNKXVW8FVZE198XEFFP"
   },
   "functions": {
     "app/**/*.tsx": {
