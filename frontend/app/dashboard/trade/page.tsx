@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { WalletGuard } from "@/components/wallet-guard"
 import { UnsignedTxModal } from "@/components/unsigned-tx-modal"
 import { ArrowUpDown, TrendingUp, AlertTriangle, Zap, RefreshCw } from "lucide-react"
-import { useAuthStore } from "@/lib/store"
+import { useAuthStore } from "../../../lib/store"
 
 interface TradeRecommendation {
   recommendationId: string
