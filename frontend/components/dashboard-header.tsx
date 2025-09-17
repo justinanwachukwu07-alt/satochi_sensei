@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ConnectWalletButton } from "@/components/connect-wallet-button"
-import { useAuthStore, useUIStore } from "/lib"
+import { useAuthStore, useUIStore } from "../lib"
 import { Wallet, Home, Menu, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
