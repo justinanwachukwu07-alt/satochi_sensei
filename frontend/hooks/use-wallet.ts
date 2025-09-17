@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { useAuthStore } from "@/lib/store"
+import { useAuthStore } from "@/lib"
 import { mockApi } from "@/lib/api"
 
 interface WalletConnection {
