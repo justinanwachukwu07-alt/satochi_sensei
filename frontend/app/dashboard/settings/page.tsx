@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { WalletGuard } from "@/components/wallet-guard"
 import { useToast } from "@/hooks/use-toast"
 import { User, Shield, Bell, Trash2, Download, Upload, AlertTriangle, CheckCircle, Brain, Zap } from "lucide-react"
-import { useAuthStore } from "@/lib"
+import { useAuthStore } from "@/lib/store"
 
 function SettingsContent() {
   const { address } = useAuthStore()
