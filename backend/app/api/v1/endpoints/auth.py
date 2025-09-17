@@ -7,7 +7,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, EmailStr
 from typing import Optional
-import jwt
+from jose import jwt
 from datetime import datetime, timedelta
 
 from app.core.database import get_db

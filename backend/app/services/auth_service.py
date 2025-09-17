@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from passlib.context import CryptContext
-import jwt
+from jose import jwt
 from datetime import datetime, timedelta
 from typing import Optional
 import uuid
@@ -96,7 +96,7 @@ class AuthService:
                 return None
             
             return user_id
-        except jwt.PyJWTError:
+        except jwt.JWTError:
             return None
     
     async def get_current_user(self, token: str) -> User:
