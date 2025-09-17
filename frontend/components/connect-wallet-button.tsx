@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useWallet } from "@/hooks/use-wallet"
-import { useAuthStore } from "../lib"
+import { useAuthStore } from "../lib/store"
 import { Wallet, Loader2, AlertCircle } from "lucide-react"
 
 interface ConnectWalletButtonProps {
