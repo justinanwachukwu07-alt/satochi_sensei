@@ -113,43 +113,43 @@ function PortfolioContent() {
       </div>
 
       {/* Portfolio Details */}
-      <Tabs defaultValue="holdings" className="space-y-6">
-        <TabsList className="bg-muted">
-          <TabsTrigger value="holdings">Holdings</TabsTrigger>
-          <TabsTrigger value="transactions">Transactions</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
+      <Tabs defaultValue="holdings" className="space-y-8">
+        <TabsList className="bg-muted w-full justify-start gap-1 p-1">
+          <TabsTrigger value="holdings" className="flex-1 text-center py-3 px-6">Holdings</TabsTrigger>
+          <TabsTrigger value="transactions" className="flex-1 text-center py-3 px-6">Transactions</TabsTrigger>
+          <TabsTrigger value="performance" className="flex-1 text-center py-3 px-6">Performance</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="holdings" className="space-y-4">
+        <TabsContent value="holdings" className="space-y-6">
           <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle>Current Holdings</CardTitle>
+            <CardHeader className="pb-6">
+              <CardTitle className="text-xl">Current Holdings</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {holdings.map((holding) => (
-                  <div key={holding.symbol} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-                    <div className="flex items-center gap-3">
+                  <div key={holding.symbol} className="flex items-center justify-between p-6 bg-muted/50 rounded-lg border border-border/50">
+                    <div className="flex items-center gap-4">
                       {holding.icon}
                       <div>
-                        <div className="font-semibold">{holding.name}</div>
+                        <div className="font-semibold text-lg">{holding.name}</div>
                         <div className="text-sm text-muted-foreground">{holding.symbol}</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-semibold">
+                      <div className="font-semibold text-lg">
                         {holding.amount} {holding.symbol}
                       </div>
                       <div className="text-sm text-muted-foreground">${holding.usdValue.toLocaleString()}</div>
                     </div>
                     <div className="text-right">
                       <div
-                        className={`flex items-center gap-1 ${holding.change24h >= 0 ? "text-primary" : "text-destructive"}`}
+                        className={`flex items-center gap-1 text-lg font-semibold ${holding.change24h >= 0 ? "text-primary" : "text-destructive"}`}
                       >
                         {holding.change24h >= 0 ? (
-                          <TrendingUp className="w-3 h-3" />
+                          <TrendingUp className="w-4 h-4" />
                         ) : (
-                          <TrendingDown className="w-3 h-3" />
+                          <TrendingDown className="w-4 h-4" />
                         )}
                         {Math.abs(holding.change24h)}%
                       </div>
@@ -162,32 +162,32 @@ function PortfolioContent() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="transactions" className="space-y-4">
+        <TabsContent value="transactions" className="space-y-6">
           <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle>Recent Transactions</CardTitle>
+            <CardHeader className="pb-6">
+              <CardTitle className="text-xl">Recent Transactions</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {transactions.map((tx) => (
-                  <div key={tx.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                        <TrendingUp className="w-5 h-5 text-primary" />
+                  <div key={tx.id} className="flex items-center justify-between p-6 bg-muted/50 rounded-lg border border-border/50">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                        <TrendingUp className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <div className="font-semibold">{tx.description}</div>
+                        <div className="font-semibold text-lg">{tx.description}</div>
                         <div className="text-sm text-muted-foreground">{tx.timestamp}</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-semibold text-primary">{tx.amount}</div>
-                      <div className="flex items-center gap-2">
+                      <div className="font-semibold text-lg text-primary">{tx.amount}</div>
+                      <div className="flex items-center gap-3 mt-2">
                         <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
                           {tx.status}
                         </Badge>
-                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                          <ExternalLink className="w-3 h-3" />
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                          <ExternalLink className="w-4 h-4" />
                         </Button>
                       </div>
                     </div>
@@ -198,39 +198,39 @@ function PortfolioContent() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="performance" className="space-y-4">
+        <TabsContent value="performance" className="space-y-6">
           <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle>Performance Metrics</CardTitle>
+            <CardHeader className="pb-6">
+              <CardTitle className="text-xl">Performance Metrics</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="flex justify-between">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
                     <span className="text-muted-foreground">Total Return</span>
-                    <span className="font-semibold text-primary">+12.4%</span>
+                    <span className="font-semibold text-lg text-primary">+12.4%</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
                     <span className="text-muted-foreground">Best Performing Asset</span>
-                    <span className="font-semibold">BTC (+15.2%)</span>
+                    <span className="font-semibold text-lg">BTC (+15.2%)</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
                     <span className="text-muted-foreground">Worst Performing Asset</span>
-                    <span className="font-semibold text-destructive">STX (-2.1%)</span>
+                    <span className="font-semibold text-lg text-destructive">STX (-2.1%)</span>
                   </div>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex justify-between">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
                     <span className="text-muted-foreground">Total Trades</span>
-                    <span className="font-semibold">23</span>
+                    <span className="font-semibold text-lg">23</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
                     <span className="text-muted-foreground">Successful Trades</span>
-                    <span className="font-semibold text-primary">21 (91.3%)</span>
+                    <span className="font-semibold text-lg text-primary">21 (91.3%)</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
                     <span className="text-muted-foreground">Avg Trade Size</span>
-                    <span className="font-semibold">$1,247</span>
+                    <span className="font-semibold text-lg">$1,247</span>
                   </div>
                 </div>
               </div>

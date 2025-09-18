@@ -216,36 +216,36 @@ function InsightsContent() {
       </div>
 
       {/* Insights List */}
-      <Tabs defaultValue="all" className="space-y-6">
-        <TabsList className="bg-muted">
-          <TabsTrigger value="all">All Insights</TabsTrigger>
-          <TabsTrigger value="strategy">Strategy</TabsTrigger>
-          <TabsTrigger value="risk">Risk</TabsTrigger>
-          <TabsTrigger value="market">Market</TabsTrigger>
+      <Tabs defaultValue="all" className="space-y-8">
+        <TabsList className="bg-muted w-full justify-start gap-1 p-1">
+          <TabsTrigger value="all" className="flex-1 text-center py-3 px-4">All Insights</TabsTrigger>
+          <TabsTrigger value="strategy" className="flex-1 text-center py-3 px-4">Strategy</TabsTrigger>
+          <TabsTrigger value="risk" className="flex-1 text-center py-3 px-4">Risk</TabsTrigger>
+          <TabsTrigger value="market" className="flex-1 text-center py-3 px-4">Market</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="all" className="space-y-4">
+        <TabsContent value="all" className="space-y-6">
           {insights.map((insight) => (
             <Card key={insight.id} className="bg-card border-border">
-              <CardHeader>
+              <CardHeader className="pb-6">
                 <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-4">
                     <div
-                      className={`w-10 h-10 bg-current/20 rounded-lg flex items-center justify-center ${getTypeColor(insight.type)}`}
+                      className={`w-12 h-12 bg-current/20 rounded-lg flex items-center justify-center ${getTypeColor(insight.type)}`}
                     >
                       {getTypeIcon(insight.type)}
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <CardTitle className="text-lg">{insight.title}</CardTitle>
+                      <div className="flex items-center gap-3 mb-2">
+                        <CardTitle className="text-xl">{insight.title}</CardTitle>
                         <Badge variant="secondary" className="capitalize bg-current/20 text-current border-current/30">
                           {insight.type}
                         </Badge>
                       </div>
-                      <p className="text-muted-foreground text-pretty leading-relaxed">{insight.summary}</p>
+                      <p className="text-muted-foreground text-pretty leading-relaxed text-lg">{insight.summary}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
                       {Math.round(insight.confidence * 100)}% confidence
                     </Badge>
@@ -258,7 +258,7 @@ function InsightsContent() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 <Collapsible
                   open={expandedInsight === insight.id}
                   onOpenChange={(open) => setExpandedInsight(open ? insight.id : null)}
@@ -285,42 +285,42 @@ function InsightsContent() {
                       Export
                     </Button>
                   </div>
-                  <CollapsibleContent className="space-y-4 pt-4">
-                    <div className="grid md:grid-cols-2 gap-4">
+                  <CollapsibleContent className="space-y-6 pt-6">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold mb-2">AI Reasoning</h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{insight.details.reasoning}</p>
+                        <h4 className="font-semibold mb-3 text-lg">AI Reasoning</h4>
+                        <p className="text-muted-foreground leading-relaxed">{insight.details.reasoning}</p>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2">Market Conditions</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
+                        <h4 className="font-semibold mb-3 text-lg">Market Conditions</h4>
+                        <ul className="text-muted-foreground space-y-2">
                           {insight.details.marketConditions.map((condition, index) => (
-                            <li key={index} className="flex items-start gap-2">
-                              <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0" />
+                            <li key={index} className="flex items-start gap-3">
+                              <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                               {condition}
                             </li>
                           ))}
                         </ul>
                       </div>
                     </div>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold mb-2">Recommendations</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
+                        <h4 className="font-semibold mb-3 text-lg">Recommendations</h4>
+                        <ul className="text-muted-foreground space-y-2">
                           {insight.details.recommendations.map((rec, index) => (
-                            <li key={index} className="flex items-start gap-2">
-                              <span className="w-1 h-1 bg-secondary rounded-full mt-2 flex-shrink-0" />
+                            <li key={index} className="flex items-start gap-3">
+                              <span className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0" />
                               {rec}
                             </li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2">Risk Factors</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
+                        <h4 className="font-semibold mb-3 text-lg">Risk Factors</h4>
+                        <ul className="text-muted-foreground space-y-2">
                           {insight.details.risks.map((risk, index) => (
-                            <li key={index} className="flex items-start gap-2">
-                              <span className="w-1 h-1 bg-destructive rounded-full mt-2 flex-shrink-0" />
+                            <li key={index} className="flex items-start gap-3">
+                              <span className="w-2 h-2 bg-destructive rounded-full mt-2 flex-shrink-0" />
                               {risk}
                             </li>
                           ))}
@@ -359,55 +359,55 @@ function InsightsContent() {
           ))}
         </TabsContent>
 
-        <TabsContent value="strategy" className="space-y-4">
+        <TabsContent value="strategy" className="space-y-6">
           {insights
             .filter((insight) => insight.type === "strategy")
             .map((insight) => (
               <Card key={insight.id} className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Target className="w-5 h-5 text-primary" />
+                <CardHeader className="pb-6">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <Target className="w-6 h-6 text-primary" />
                     {insight.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{insight.summary}</p>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{insight.summary}</p>
                 </CardContent>
               </Card>
             ))}
         </TabsContent>
 
-        <TabsContent value="risk" className="space-y-4">
+        <TabsContent value="risk" className="space-y-6">
           {insights
             .filter((insight) => insight.type === "risk")
             .map((insight) => (
               <Card key={insight.id} className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-destructive" />
+                <CardHeader className="pb-6">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <Shield className="w-6 h-6 text-destructive" />
                     {insight.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{insight.summary}</p>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{insight.summary}</p>
                 </CardContent>
               </Card>
             ))}
         </TabsContent>
 
-        <TabsContent value="market" className="space-y-4">
+        <TabsContent value="market" className="space-y-6">
           {insights
             .filter((insight) => insight.type === "market")
             .map((insight) => (
               <Card key={insight.id} className="bg-card border-border">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-secondary" />
+                <CardHeader className="pb-6">
+                  <CardTitle className="flex items-center gap-3 text-xl">
+                    <TrendingUp className="w-6 h-6 text-secondary" />
                     {insight.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{insight.summary}</p>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{insight.summary}</p>
                 </CardContent>
               </Card>
             ))}
