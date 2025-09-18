@@ -11,7 +11,7 @@
 
 *Your intelligent guide to maximizing DeFi returns with cutting-edge AI strategies*
 
-[🚀 Quick Start](#-quick-start) • [📖 Documentation](#-documentation) • [🔧 API Reference](#-api-reference) • [🤝 Contributing](#-contributing)
+[🌐 Live Demo](https://satochi-sensei.netlify.app/) • [🚀 Quick Start](#-quick-start) • [📖 Documentation](#-documentation) • [🔧 API Reference](#-api-reference) • [🤝 Contributing](#-contributing)
 
 </div>
 
@@ -29,6 +29,8 @@ Satoshi Sensei is a revolutionary AI-powered DeFi copilot that combines the powe
 - 🎓 **Interactive Education** - Learn DeFi concepts with AI-powered explanations
 - 🔒 **Security-First Design** - Non-custodial architecture with client-side signing
 - ⚡ **Lightning-Fast Performance** - Sub-150ms API responses with Redis caching
+- 🔄 **Hybrid Data Service** - Seamlessly switch between real-time and mock data for development and production
+- 🎛️ **Data Mode Toggle** - User-friendly interface to switch between mock, real-time, and hybrid modes
 
 ## 🏗️ Architecture
 
@@ -78,6 +80,23 @@ graph TB
     F --> N
 ```
 
+## 🌐 Live Deployment
+
+### 🚀 Production Application
+- **Frontend**: [https://satochi-sensei.netlify.app/](https://satochi-sensei.netlify.app/)
+- **Status**: ✅ Live and fully functional
+- **Features**: AI-powered DeFi dashboard, hybrid data service, real-time/mock data switching
+
+### 📊 Smart Contracts (Stacks Testnet)
+- **Satoshi Sensei Core**: `STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core`
+- **DeFi Strategy Executor**: `STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor`
+- **Explorer**: [View on Stacks Explorer](https://explorer.stacks.co)
+
+### 🔧 Development Environment
+- **Repository**: [GitHub](https://github.com/justinanwachukwu07-alt/satochi_sensei)
+- **Backend API**: `http://localhost:8000` (local development)
+- **Frontend**: `http://localhost:3000` (local development)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -91,8 +110,8 @@ graph TB
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/satoshi-sensei.git
-   cd satoshi-sensei
+   git clone https://github.com/justinanwachukwu07-alt/satochi_sensei.git
+   cd satochi_sensei
    ```
 
 2. **Set up the backend**
@@ -271,29 +290,54 @@ pytest tests/integration/ -v
 
 ## 🚀 Deployment
 
-### Production Deployment
+### ✅ Current Production Deployment
 
-1. **Configure production environment**
+**Frontend (Netlify)**
+- **URL**: [https://satochi-sensei.netlify.app/](https://satochi-sensei.netlify.app/)
+- **Status**: ✅ Live and fully functional
+- **Features**: 
+  - AI-powered DeFi dashboard
+  - Hybrid data service (real-time + mock fallback)
+  - Data mode toggle (mock/real-time/hybrid)
+  - Responsive design for all devices
+  - Wallet integration ready
+
+**Smart Contracts (Stacks Testnet)**
+- **Core Contract**: `STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.satoshi-sensei-core`
+- **Executor Contract**: `STWWKZA3X98YT263TP28280FP25TYP2TMHC5F7G2.defi-strategy-executor`
+- **Status**: ✅ Deployed and active
+- **Network**: Stacks Testnet
+
+**Backend (Local Development)**
+- **API URL**: `http://localhost:8000`
+- **Status**: 🔧 Development ready
+- **CORS**: Configured for Netlify domain
+
+### 🔄 Deployment Process
+
+1. **Frontend Deployment (Netlify)**
    ```bash
+   # Automatic deployment on git push to main branch
+   git push origin main
+   # Netlify automatically builds and deploys
+   ```
+
+2. **Smart Contract Deployment**
+   ```bash
+   cd satoshi-sensei-contracts
+   clarinet deploy --testnet  # Current
+   clarinet deploy --mainnet  # Future production
+   ```
+
+3. **Backend Deployment (Future)**
+   ```bash
+   # Configure production environment
    export ENVIRONMENT=production
    export DEBUG=false
    export DATABASE_URL=sqlite:///./prod_satoshi_sensei.db
-   ```
-
-2. **Deploy smart contracts**
-   ```bash
-   clarinet deploy --mainnet
-   ```
-
-3. **Deploy backend**
-   ```bash
+   
+   # Deploy with Docker
    docker-compose -f docker-compose.prod.yml up -d
-   ```
-
-4. **Deploy frontend**
-   ```bash
-   npm run build
-   # Deploy to your hosting platform
    ```
 
 ### Docker Deployment
@@ -393,6 +437,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS
 - **Shadcn/ui** - Component library
+- **Hybrid Data Service** - Real-time/mock data switching
+- **Netlify** - Frontend hosting and deployment
 
 ### Smart Contracts
 - **Clarity** - Stacks smart contract language
@@ -405,10 +451,11 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📞 Support
 
-- **Documentation**: [docs.satoshisensei.ai](https://docs.satoshisensei.ai)
-- **Discord**: [Join our community](https://discord.gg/satoshisensei)
-- **Email**: support@satoshisensei.ai
-- **GitHub Issues**: [Report bugs](https://github.com/your-username/satoshi-sensei/issues)
+- **Live Application**: [https://satochi-sensei.netlify.app/](https://satochi-sensei.netlify.app/)
+- **GitHub Repository**: [https://github.com/justinanwachukwu07-alt/satochi_sensei](https://github.com/justinanwachukwu07-alt/satochi_sensei)
+- **Smart Contracts**: [Stacks Explorer](https://explorer.stacks.co)
+- **GitHub Issues**: [Report bugs](https://github.com/justinanwachukwu07-alt/satochi_sensei/issues)
+- **Email**: justinanwachukwu07@gmail.com
 
 ## 📄 License
 
@@ -428,6 +475,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for the Bitcoin and Stacks communities**
 
-[⭐ Star this repo](https://github.com/your-username/satoshi-sensei) • [🐛 Report Bug](https://github.com/your-username/satoshi-sensei/issues) • [💡 Request Feature](https://github.com/your-username/satoshi-sensei/issues)
+[⭐ Star this repo](https://github.com/justinanwachukwu07-alt/satochi_sensei) • [🌐 Live Demo](https://satochi-sensei.netlify.app/) • [🐛 Report Bug](https://github.com/justinanwachukwu07-alt/satochi_sensei/issues) • [💡 Request Feature](https://github.com/justinanwachukwu07-alt/satochi_sensei/issues)
 
 </div>
