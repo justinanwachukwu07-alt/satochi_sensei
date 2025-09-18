@@ -7,16 +7,13 @@
   NODE_VERSION = "18.19.0"
   PNPM_VERSION = "9"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [[redirects]]
   from = "/dashboard"
   to = "/dashboard/portfolio"
   status = 302
-
-# Handle Next.js client-side routing
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [[headers]]
   for = "/*"
