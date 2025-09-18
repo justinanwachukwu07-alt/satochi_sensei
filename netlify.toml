@@ -7,10 +7,6 @@
   NODE_VERSION = "18"
   PNPM_VERSION = "9"
 
-# Ignore backend files
-[build.ignore]
-  ignore = "backend/*"
-
 [[redirects]]
   from = "/dashboard"
   to = "/dashboard/portfolio"
