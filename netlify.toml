@@ -1,11 +1,15 @@
 [build]
-  base = "."
+  base = "frontend"
   command = "pnpm build"
-  publish = ".next"
+  publish = "frontend/.next"
 
 [build.environment]
   NODE_VERSION = "18"
   PNPM_VERSION = "9"
+
+# Ignore backend files
+[build.ignore]
+  ignore = "backend/*"
 
 [[redirects]]
   from = "/dashboard"
