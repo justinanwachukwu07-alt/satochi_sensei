@@ -11,6 +11,8 @@ import { WalletGuard } from "@/components/wallet-guard"
 import { UnsignedTxModal } from "@/components/unsigned-tx-modal"
 import { ArrowUpDown, TrendingUp, AlertTriangle, Zap, RefreshCw } from "lucide-react"
 import { useAuthStore } from "@/components/store"
+import { dataService } from "@/components/data-service"
+import { DataModeToggle } from "@/components/data-mode-toggle"
 
 interface TradeRecommendation {
   recommendationId: string
@@ -46,31 +48,16 @@ function TradeContent() {
 
     setIsLoading(true)
     try {
-      // Simulate API call to prepare trade
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // Use hybrid data service to prepare trade
+      const recommendation = await dataService.prepareTrade({
+        fromToken,
+        toToken,
+        amount,
+        slippage,
+        address,
+      })
 
-      const mockRecommendation: TradeRecommendation = {
-        recommendationId: `rec_${Date.now()}`,
-        summary: `Swap ${amount} ${fromToken} for ${toToken} with ${slippage}% slippage tolerance`,
-        riskScore: 2.8,
-        confidence: 0.92,
-        actions: [
-          {
-            type: "clarity_call",
-            contract: "SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.amm-swap-pool",
-            function: "swap-exact-tokens-for-tokens",
-            args: [amount, "u1000000", fromToken, toToken],
-          },
-        ],
-        unsignedTx: {
-          payload: `0x${Math.random().toString(16).substring(2, 50)}`,
-          humanSummary: `Swap ${amount} ${fromToken} for approximately ${(Number.parseFloat(amount) * 0.98).toFixed(4)} ${toToken}`,
-          gasEstimate: "0.002 STX",
-          fee: "$0.12",
-        },
-      }
-
-      setRecommendation(mockRecommendation)
+      setRecommendation(recommendation as TradeRecommendation)
       setShowModal(true)
     } catch (error) {
       console.error("Failed to prepare trade:", error)
@@ -87,11 +74,14 @@ function TradeContent() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-balance">Trade</h1>
-        <p className="text-muted-foreground text-pretty">
-          Execute secure DeFi trades with AI-powered insights and risk assessment
-        </p>
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-balance">Trade</h1>
+          <p className="text-muted-foreground text-pretty">
+            Execute secure DeFi trades with AI-powered insights and risk assessment
+          </p>
+        </div>
+        <DataModeToggle />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">

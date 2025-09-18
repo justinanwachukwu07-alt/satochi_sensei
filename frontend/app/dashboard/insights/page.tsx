@@ -22,6 +22,8 @@ import {
   Clock,
 } from "lucide-react"
 import { useAuthStore } from "@/components/store"
+import { dataService } from "@/components/data-service"
+import { DataModeToggle } from "@/components/data-mode-toggle"
 
 interface AIInsight {
   id: string
@@ -57,94 +59,9 @@ function InsightsContent() {
 
     setIsLoading(true)
     try {
-      // Simulate AI insight generation
-      await new Promise((resolve) => setTimeout(resolve, 3000))
-
-      const mockInsights: AIInsight[] = [
-        {
-          id: `insight_${Date.now()}_1`,
-          type: "strategy",
-          title: "Diversification Opportunity Detected",
-          summary:
-            "Your portfolio shows high STX concentration. Consider rebalancing 15% into sBTC for better risk distribution.",
-          confidence: 0.87,
-          riskScore: 2.3,
-          timestamp: new Date(),
-          details: {
-            reasoning:
-              "Analysis of your current holdings reveals 78% allocation in STX tokens, creating concentration risk. Market correlation data suggests sBTC provides effective diversification while maintaining Stacks ecosystem exposure.",
-            marketConditions: [
-              "STX showing increased volatility (+12% in 7 days)",
-              "sBTC maintaining stable peg to Bitcoin",
-              "Stacks DeFi TVL growing 23% month-over-month",
-            ],
-            recommendations: [
-              "Swap 125 STX (10% of holdings) to sBTC",
-              "Set up DCA strategy for gradual rebalancing",
-              "Monitor correlation metrics weekly",
-            ],
-            risks: ["Temporary impermanent loss during swap", "Gas fees for rebalancing", "Market timing risk"],
-          },
-          rawResponse: {
-            prompt:
-              "Analyze portfolio allocation for address SP2J6ZY48GV1EZ5V2V5RB9MP66SW86PYKKNRV9EJ7 and provide diversification recommendations",
-            model: "grok-beta",
-            response:
-              '{"analysis": "High STX concentration detected", "recommendation": "Diversify into sBTC", "confidence": 0.87}',
-            auditId: "audit_67890",
-          },
-        },
-        {
-          id: `insight_${Date.now()}_2`,
-          type: "market",
-          title: "Favorable Swap Conditions",
-          summary: "Current market conditions show optimal timing for STX→sBTC swaps with minimal slippage.",
-          confidence: 0.92,
-          riskScore: 1.8,
-          timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30 minutes ago
-          details: {
-            reasoning:
-              "Deep liquidity pools and low volatility create ideal conditions for large swaps. Historical analysis shows similar conditions preceded 3-5 day periods of stable pricing.",
-            marketConditions: [
-              "Pool liquidity at 3-month high ($2.4M)",
-              "Slippage under 0.3% for trades up to $10K",
-              "Low volatility period (VIX equivalent: 18)",
-            ],
-            recommendations: [
-              "Execute swaps within next 4-6 hours",
-              "Consider larger position sizes due to low slippage",
-              "Monitor pool depth before execution",
-            ],
-            risks: ["Market conditions can change rapidly", "Pool liquidity may decrease", "Arbitrage opportunities"],
-          },
-        },
-        {
-          id: `insight_${Date.now()}_3`,
-          type: "risk",
-          title: "Smart Contract Risk Assessment",
-          summary: "Recent audit completed on primary AMM contracts. Security score improved to 9.2/10.",
-          confidence: 0.95,
-          riskScore: 1.2,
-          timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
-          details: {
-            reasoning:
-              "Third-party security audit by Trail of Bits completed with no critical vulnerabilities found. Minor optimizations implemented, reducing gas costs by 8%.",
-            marketConditions: [
-              "Audit report published and verified",
-              "No exploits detected in 90 days",
-              "Bug bounty program active with $100K rewards",
-            ],
-            recommendations: [
-              "Safe to increase position sizes",
-              "Consider this for larger trades",
-              "Monitor ongoing security metrics",
-            ],
-            risks: ["New vulnerabilities may be discovered", "Audit scope limitations", "Implementation risks"],
-          },
-        },
-      ]
-
-      setInsights(mockInsights)
+      // Use hybrid data service to get insights
+      const response = await dataService.getInsights(address)
+      setInsights(response.insights)
       setLastRefresh(new Date())
     } catch (error) {
       console.error("Failed to generate insights:", error)
@@ -227,6 +144,7 @@ function InsightsContent() {
               Last updated: {lastRefresh.toLocaleTimeString()}
             </div>
           )}
+          <DataModeToggle />
           <Button onClick={generateInsights} disabled={isLoading} className="bg-primary hover:bg-primary/90">
             {isLoading ? (
               <>

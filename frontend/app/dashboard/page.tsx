@@ -6,8 +6,40 @@ import { Badge } from "@/components/ui/badge"
 import { WalletGuard } from "@/components/wallet-guard"
 import { TrendingUp, TrendingDown, Brain, Zap, ArrowRight, Bitcoin, Coins } from "lucide-react"
 import Link from "next/link"
+import { dataService } from "@/components/data-service"
+import { DataModeToggle } from "@/components/data-mode-toggle"
+import { useState, useEffect } from "react"
 
 function DashboardContent() {
+  const [portfolioData, setPortfolioData] = useState({
+    totalValue: 26144.28,
+    change24h: 2.3,
+    btcHoldings: { amount: "0.5432", usdValue: 23456.78 },
+    stxHoldings: { amount: "1250", usdValue: 2687.5, change24h: -1.2 },
+    aiConfidence: 85
+  })
+  const [recommendation, setRecommendation] = useState({
+    summary: "Consider swapping 10% of your STX holdings to sBTC to diversify your Bitcoin exposure while maintaining Stacks ecosystem participation. Current market conditions favor this rebalancing strategy.",
+    riskScore: 3.2,
+    confidence: 85
+  })
+
+  useEffect(() => {
+    // Load portfolio data using hybrid service
+    const loadData = async () => {
+      try {
+        // This would be called with actual wallet address in real implementation
+        // const performance = await dataService.getPortfolioPerformance(address)
+        // const rec = await dataService.getRecommendation(address)
+        // setPortfolioData(performance)
+        // setRecommendation(rec)
+      } catch (error) {
+        console.error("Failed to load dashboard data:", error)
+      }
+    }
+    loadData()
+  }, [])
+
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
@@ -18,12 +50,15 @@ function DashboardContent() {
             Your AI-powered DeFi copilot for Bitcoin and Stacks trading
           </p>
         </div>
-        <Link href="/dashboard/trade">
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            Start Trading
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
+        <div className="flex items-center gap-3">
+          <DataModeToggle />
+          <Link href="/dashboard/trade">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              Start Trading
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Portfolio Overview */}
@@ -34,10 +69,10 @@ function DashboardContent() {
             <Coins className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$26,144.28</div>
+            <div className="text-2xl font-bold">${portfolioData.totalValue.toLocaleString()}</div>
             <div className="flex items-center gap-1 text-xs text-primary">
               <TrendingUp className="w-3 h-3" />
-              +2.3% (24h)
+              +{portfolioData.change24h}% (24h)
             </div>
           </CardContent>
         </Card>
@@ -48,10 +83,10 @@ function DashboardContent() {
             <Bitcoin className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0.5432 BTC</div>
+            <div className="text-2xl font-bold">{portfolioData.btcHoldings.amount} BTC</div>
             <div className="flex items-center gap-1 text-xs text-primary">
               <TrendingUp className="w-3 h-3" />
-              $23,456.78
+              ${portfolioData.btcHoldings.usdValue.toLocaleString()}
             </div>
           </CardContent>
         </Card>
@@ -62,10 +97,10 @@ function DashboardContent() {
             <div className="w-4 h-4 bg-secondary rounded-full" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1,250 STX</div>
+            <div className="text-2xl font-bold">{portfolioData.stxHoldings.amount} STX</div>
             <div className="flex items-center gap-1 text-xs text-destructive">
               <TrendingDown className="w-3 h-3" />
-              $2,687.50
+              ${portfolioData.stxHoldings.usdValue.toLocaleString()}
             </div>
           </CardContent>
         </Card>
@@ -76,7 +111,7 @@ function DashboardContent() {
             <Brain className="h-4 w-4 text-secondary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">85%</div>
+            <div className="text-2xl font-bold">{portfolioData.aiConfidence}%</div>
             <div className="text-xs text-muted-foreground">High confidence</div>
           </CardContent>
         </Card>
@@ -100,19 +135,18 @@ function DashboardContent() {
           <div>
             <h3 className="font-semibold mb-2">Diversification Opportunity</h3>
             <p className="text-muted-foreground text-pretty leading-relaxed">
-              Consider swapping 10% of your STX holdings to sBTC to diversify your Bitcoin exposure while maintaining
-              Stacks ecosystem participation. Current market conditions favor this rebalancing strategy.
+              {recommendation.summary}
             </p>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="text-sm">
                 <span className="text-muted-foreground">Risk Score:</span>
-                <span className="ml-2 font-semibold text-primary">3.2/5</span>
+                <span className="ml-2 font-semibold text-primary">{recommendation.riskScore}/5</span>
               </div>
               <div className="text-sm">
                 <span className="text-muted-foreground">Confidence:</span>
-                <span className="ml-2 font-semibold text-secondary">85%</span>
+                <span className="ml-2 font-semibold text-secondary">{recommendation.confidence}%</span>
               </div>
             </div>
             <div className="flex gap-2">
