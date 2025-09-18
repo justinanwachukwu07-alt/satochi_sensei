@@ -7,7 +7,7 @@ import { useUIStore } from "./store"
 import { Home, TrendingUp, Brain, Wallet, Settings, Menu, X, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
+import { cn } from "./utils"
 
 const sidebarItems = [
   { icon: Home, label: "Home", href: "/dashboard" },
