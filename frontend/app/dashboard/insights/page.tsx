@@ -21,7 +21,7 @@ import {
   Shield,
   Clock,
 } from "lucide-react"
-import { useAuthStore } from "@/lib/store"
+import { useAuthStore } from "../../lib/store"
 
 interface AIInsight {
   id: string

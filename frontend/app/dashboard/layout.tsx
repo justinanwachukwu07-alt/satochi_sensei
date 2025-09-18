@@ -4,7 +4,7 @@ import type React from "react"
 
 import { DashboardSidebar } from "@/components/dashboard-sidebar"
 import { DashboardHeader } from "@/components/dashboard-header"
-import { useUIStore } from "@/lib/store"
+import { useUIStore } from "../lib/store"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 
