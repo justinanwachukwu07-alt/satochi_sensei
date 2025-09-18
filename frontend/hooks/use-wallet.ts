@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { useAuthStore } from "@/components/store"
-import { mockApi } from "/lib/api"
+import { mockApi } from "@/components/api"
 
 interface WalletConnection {
   address: string
