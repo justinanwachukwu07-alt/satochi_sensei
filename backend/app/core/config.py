@@ -22,7 +22,12 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
     # CORS
-    ALLOWED_HOSTS: List[str] = ["http://localhost:3000", "http://localhost:8000"]
+    ALLOWED_HOSTS: List[str] = [
+        "http://localhost:3000", 
+        "http://localhost:8000",
+        "https://satochi-sensei.netlify.app",
+        "https://main--satochi-sensei.netlify.app"
+    ]
     
     # Database
     DATABASE_URL: str = "sqlite:///./satoshi_sensei.db"
